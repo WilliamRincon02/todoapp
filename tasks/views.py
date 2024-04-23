@@ -14,6 +14,11 @@ def index(request):
     return JsonResponse(data, safe=False)
 
 def users(request):
-    users = User.objects.all()
+    users = []
+
+    for user in User.objects.all():
+        if (user.is_superuser != True):
+            users.append(user)
+
     data = serialize('python', users)
     return JsonResponse(data, safe=False)
