@@ -4,6 +4,12 @@ from django.contrib import admin
 
 from django.contrib import admin
 
-from.models import Task
+from .models import Task
+
+
+class TasksAdmin(admin.ModelAdmin):
+    list_display = ("id", "name", "description", "user_id", "priority", "completed")
+    search_fields = ["name"]
+
 
 admin.site.register(Task)

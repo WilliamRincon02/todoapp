@@ -8,19 +8,25 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tasks', '0001_initial'),
+        ("tasks", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='task',
-            name='priority',
+            model_name="task",
+            name="priority",
             field=models.PositiveSmallIntegerField(default=0),
         ),
         migrations.AddField(
-            model_name='task',
-            name='user',
-            field=models.ForeignKey(limit_choices_to={'is_admin': False}, null=True, on_delete=django.db.models.deletion.RESTRICT, related_name='tasks', to=settings.AUTH_USER_MODEL),
+            model_name="task",
+            name="user",
+            field=models.ForeignKey(
+                limit_choices_to={"is_admin": False},
+                null=True,
+                on_delete=django.db.models.deletion.RESTRICT,
+                related_name="tasks",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

@@ -8,19 +8,25 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tasks', '0003_alter_task_user'),
+        ("tasks", "0003_alter_task_user"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='task',
-            name='completed',
+            model_name="task",
+            name="completed",
             field=models.BooleanField(default=False),
         ),
         migrations.AlterField(
-            model_name='task',
-            name='user',
-            field=models.ForeignKey(limit_choices_to={'is_superuser': False}, null=True, on_delete=django.db.models.deletion.RESTRICT, related_name='tasks', to=settings.AUTH_USER_MODEL),
+            model_name="task",
+            name="user",
+            field=models.ForeignKey(
+                limit_choices_to={"is_superuser": False},
+                null=True,
+                on_delete=django.db.models.deletion.RESTRICT,
+                related_name="tasks",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]
