@@ -17,10 +17,12 @@ class Task (models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.RESTRICT,
-        limit_choices_to={'is_staff': False},
+        limit_choices_to={'is_superuser': False},
         related_name='tasks',
         null = True
     )
+
+    completed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
