@@ -9,6 +9,19 @@ class ProfileCreationSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ["username", "password", "email", "bio"]
 
+    def validate_password(self, value):
+        if len(value) < 8:
+            raise serializers.ValidationError(
+                "The password must have at least 8 characters."
+            )
+
+        if not re.search(r"[#@%&!]", value):
+            raise serializers.ValidationError(
+                "Password must contain at least one special character."
+            )
+
+        return value
+
     def create(self, validated_data):
         validated_data["password"] = make_password(validated_data.get("password"))
 
