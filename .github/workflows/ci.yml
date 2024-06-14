@@ -51,8 +51,8 @@ jobs:
     - name: Install Dependencies
       run: |
         python -m install --upgrade pip
-        pip install -r requierements/base.txt
-        pip install -r requierements/ci.txt
+        pip install -r requirements/base.txt
+        pip install -r requirements/ci.txt
     - name: Run Tests
       run: |
         python manage.py test --settings=todoapp.settings.ci
