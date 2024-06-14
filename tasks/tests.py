@@ -2,7 +2,7 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 from django.contrib.auth import get_user_model
-from rest_framework.authtoken.models import Token
+from rest_framework_simplejwt.tokens import RefreshToken
 from .models import Task
 
 # Create your tests here.
@@ -12,7 +12,8 @@ class TasksTests(APITestCase):
     def setUpClass(cls):
         user_class = get_user_model()
         cls.user = user_class.objects.create(username="jhon", email="foo@bar.com")
-        cls.token, created = Token.objects.get_or_create(user=cls.user)
+        refresh = RefreshToken.for_user(cls.user)
+        cls.access_token = str(refresh.access_token)
         # cls.token = Token.objects.create(user=cls.user)
         cls.task = Task.objects.create(
             name="My Taks", description="My task description", user=cls.user
