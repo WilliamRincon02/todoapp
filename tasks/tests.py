@@ -5,34 +5,31 @@ from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import Task
 
-# Create your tests here.
-
 class TasksTests(APITestCase):
     @classmethod
     def setUpClass(cls):
+        super().setUpClass()
         user_class = get_user_model()
         cls.user = user_class.objects.create(username="jhon", email="foo@bar.com")
         refresh = RefreshToken.for_user(cls.user)
         cls.access_token = str(refresh.access_token)
-        # cls.token = Token.objects.create(user=cls.user)
         cls.task = Task.objects.create(
-            name="My Taks", description="My task description", user=cls.user
+            name="My Task", description="My task description", user=cls.user
         )
 
     @classmethod
     def tearDownClass(cls):
         cls.task.delete()
-        cls.token.delete()
         cls.user.delete()
+        super().tearDownClass()
 
     def setUp(self):
-        self.client.force_authenticate(user=self.user, token=self.token)
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.access_token}')
 
     def test_get_task_list(self):
         url = reverse("task-list")
         response = self.client.get(url, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        # self.assertEqual(len(response.data.get("results")), 1)
         self.assertIsInstance(response.data, list)
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.data[0]["name"], self.task.name)
