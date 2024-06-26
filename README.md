@@ -7,8 +7,6 @@
 - [Execution of Linters](#Execution-of-Linters)
 
 ## Development team members:
-Angel Esteban Restrepo – 1151962
-
 Bryan Alexander Niño - 1151809
 
 William Rincón Julio – 1152053
