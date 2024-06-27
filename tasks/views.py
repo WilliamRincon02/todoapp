@@ -11,7 +11,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     filter_backends = [OrderingFilter, DjangoFilterBackend]
-    filterset_fields = ['completed']
+    filterset_fields = ['completed', 'priority']
     ordering_fields = ["priority", "completed"]
 
     def get_queryset(self):
